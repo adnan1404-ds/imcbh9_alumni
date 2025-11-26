@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMCB H-9 Alumni Portal</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="nav-logo" onclick="switchTab('home')">
+                <div class="nav-logo-icon">
+                   <Img src="src/newlogo.jpg"></Img>
+                </div>
+                <div class="nav-logo-text">
+                    <h1>IMCB H-9</h1>
+                    <p>Alumni Association</p>
+                </div>
+            </div>
+
+            <div class="desktop-menu">
+                <button onclick="switchTab('home')" class="nav-btn active-nav" id="nav-home">Home</button>
+                <button onclick="switchTab('directory')" class="nav-btn" id="nav-directory">Alumni Directory</button>
+                <button onclick="switchTab('memories')" class="nav-btn" id="nav-memories">Memories</button>
+                <button onclick="switchTab('gallery')" class="nav-btn" id="nav-gallery">Gallery</button>
+                <button onclick="switchTab('join')" class="nav-btn btn-register" id="nav-join">Register / Join</button>
+            </div>
+
+            <button onclick="toggleMobileMenu()" class="mobile-menu-btn">
+                <i data-lucide="menu" style="height: 1.5rem; width: 1.5rem;"></i>
+            </button>
+        </div>
+        
+        <div id="mobile-menu" class="hidden md:hidden mobile-dropdown">
+            <button onclick="switchTab('home')" class="mobile-link">Home</button>
+            <button onclick="switchTab('directory')" class="mobile-link">Directory</button>
+            <button onclick="switchTab('memories')" class="mobile-link">Memories</button>
+            <button onclick="switchTab('join')" class="mobile-link" style="background-color: var(--primary-blue); color: white;">Join</button>
+        </div>
+    </nav>
+
+    <main style="flex-grow: 1;">
+        
+        <section id="home" class="tab-content">
+            <div class="hero">
+                <div class="hero-overlay"></div>
+                <div class="container" style="position: relative;">
+                    <div class="hero-badge">
+                        <span style="display: inline-block; height: 8px; width: 8px; background: #f87171; border-radius: 50%; margin-right: 0.5rem;"></span>
+                        Connecting Generations Since 1965
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        Welcome Sir Nadeem Taj , <span>IMCB H-9</span>
+                    </h1>
+                    
+                    <p class="hero-desc">
+                        Reconnect with batchmates, mentor current students, and celebrate the success stories that started at Islamabad Model College for Boys H-9.
+                    </p>
+                    
+                    <div class="hero-actions">
+                        <button onclick="switchTab('join')" class="btn-hero-primary">
+                            <i data-lucide="user-plus" style="margin-right: 0.5rem; height: 1.25rem; width: 1.25rem;"></i>
+                            Register
+                        </button>
+                        <button onclick="switchTab('memories')" class="btn-hero-secondary">
+                            <i data-lucide="camera" style="margin-right: 0.5rem; height: 1.25rem; width: 1.25rem;"></i>
+                            Share Memories
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <div class="container">
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-icon"><i data-lucide="users" style="height: 1.5rem; width: 1.5rem;"></i></div>
+                            <dt class="stat-label">Alumni Network</dt>
+                            <dd class="stat-val">15,000+</dd>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon"><i data-lucide="award" style="height: 1.5rem; width: 1.5rem;"></i></div>
+                            <dt class="stat-label">Distinctions</dt>
+                            <dd class="stat-val">1,200+</dd>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon"><i data-lucide="book-open" style="height: 1.5rem; width: 1.5rem;"></i></div>
+                            <dt class="stat-label">Years of Excellence</dt>
+                            <dd class="stat-val">58</dd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background-color: var(--slate-50); padding: 4rem 0;" id="success-stories-container">
+                </div>
+        </section>
+
+        <section id="directory" class="tab-content hidden-tab">
+            <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+                <div class="text-center mb-12">
+                    <h2 style="font-size: 1.875rem; color: var(--slate-900);">Alumni Directory</h2>
+                    <p class="mt-4 text-gray-600">Search and connect with fellow graduates</p>
+                </div>
+
+                <div class="form-filters">
+                    <div class="input-group input-group-search">
+                        <i data-lucide="search" class="search-icon" style="height: 1.25rem; width: 1.25rem;"></i>
+                        <input type="text" id="dir-search" onkeyup="renderDirectory()" class="form-input pl-10" placeholder="Search by name, profession, or company...">
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 0.5rem; width: 100%; max-width: 300px;">
+                        <label style="font-size: 0.875rem; font-weight: 500; color: #374151; white-space: nowrap;">Filter by Batch:</label>
+                        <select id="dir-batch" onchange="renderDirectory()" class="form-select">
+                            <option value="All">All Batches</option>
+                            </select>
+                    </div>
+                </div>
+
+                <div id="directory-grid" class="grid-container">
+                    </div>
+            </div>
+        </section>
+
+        <section id="memories" class="tab-content hidden-tab">
+            <div style="background-color: var(--slate-100); min-height: 100vh; padding: 2rem 0;">
+                <div class="memories-container">
+                    <div class="text-center mb-6">
+                        <h2 style="font-size: 1.875rem; font-weight: 700;">Memories Wall</h2>
+                        <p style="color: #4b5563;">Share your favorite college moments</p>
+                    </div>
+
+                    <div class="composer">
+                        <form onsubmit="handlePostMemory(event)">
+                            <div class="composer-header">
+                                <div class="composer-avatar">
+                                    <i data-lucide="user" style="color: #64748b;"></i>
+                                </div>
+                                <div class="composer-inputs">
+                                    <input type="text" id="mem-author" class="composer-name" placeholder="Your Name (Optional)">
+                                    <textarea id="mem-content" onfocus="document.getElementById('mem-extras').classList.remove('hidden')" rows="2" class="composer-text" placeholder="What's on your mind?"></textarea>
+                                </div>
+                            </div>
+                            
+                            <div id="mem-extras" class="hidden mb-6 animate-fade-in">
+                                <input type="text" id="mem-image" class="form-input" placeholder="Image URL (https://...)">
+                            </div>
+
+                            <div class="composer-footer">
+                                <button type="button" onclick="document.getElementById('mem-extras').classList.toggle('hidden')" class="btn-icon-text">
+                                    <i data-lucide="image" style="color: #22c55e; height: 1.25rem; width: 1.25rem;"></i>
+                                    <span>Photo/Video</span>
+                                </button>
+                                <button type="submit" class="btn-post">Post</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="memories-feed" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="join" class="tab-content hidden-tab">
+            <div style="background-color: var(--slate-50); padding: 3rem 1rem;">
+                <div class="form-card">
+                    <div class="form-header">
+                        <h2 style="font-size: 1.875rem;">Join the Alumni Network</h2>
+                        <p style="color: #bfdbfe; margin-top: 0.5rem;">Register yourself to stay connected with IMCB H-9</p>
+                    </div>
+                    
+                    <div class="form-body">
+                        <form onsubmit="handleJoin(event)">
+                            <div class="form-grid-2">
+                                <div>
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" id="join-name" required class="form-input">
+                                </div>
+                                <div>
+                                    <label class="form-label">Batch Year</label>
+                                    <input type="number" id="join-batch" required min="1965" max="2024" class="form-input">
+                                </div>
+                            </div>
+
+                            <div class="form-grid-2">
+                                <div>
+                                    <label class="form-label">Current Profession</label>
+                                    <input type="text" id="join-profession" required class="form-input">
+                                </div>
+                                <div>
+                                    <label class="form-label">Company / Organization</label>
+                                    <input type="text" id="join-company" required class="form-input">
+                                </div>
+                            </div>
+
+                            <div class="form-grid-2">
+                                <div>
+                                    <label class="form-label">LinkedIn Profile URL</label>
+                                    <input type="text" id="join-linkedin" class="form-input" placeholder="linkedin.com/in/...">
+                                </div>
+                                <div>
+                                    <label class="form-label">WhatsApp Number</label>
+                                    <input type="tel" id="join-whatsapp" required class="form-input" placeholder="+92 300 1234567">
+                                </div>
+                            </div>
+
+                            <div class="mb-6">
+                                <label class="form-label">Your Success Story</label>
+                                <textarea id="join-story" rows="4" class="form-textarea" placeholder="Share a brief memory or your professional journey..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-submit">
+                                Submit Registration
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="gallery" class="tab-content hidden-tab">
+            <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
+                <div class="text-center mb-12">
+                    <h2 style="font-size: 1.875rem; color: var(--slate-900);">Campus Gallery</h2>
+                    <p class="mt-4 text-gray-600">A curated collection of moments, architecture, and student creativity.</p>
+                </div>
+                
+                <div id="gallery-grid" class="gallery-grid">
+                    <div class="gallery-item group">
+                        <div class="gallery-img-wrapper">
+                            <img src="src/background.png" class="gallery-img">
+                        </div>
+                        <p class="gallery-caption">Main Academic Block</p>
+                    </div>
+
+                    <div class="gallery-item group">
+                        <div class="gallery-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80&w=800" class="gallery-img">
+                        </div>
+                        <p class="gallery-caption">Batch 2022 Farewell</p>
+                    </div>
+
+                    <div class="gallery-item group">
+                        <div class="gallery-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800" class="gallery-img">
+                        </div>
+                        <p class="gallery-caption">Annual Convocation</p>
+                    </div>
+
+                    <div class="gallery-item group">
+                        <div class="gallery-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=800" class="gallery-img">
+                        </div>
+                        <p class="gallery-caption">Fine Arts Exhibition</p>
+                    </div>
+
+                    <div class="gallery-item group">
+                        <div class="gallery-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&q=80&w=800" class="gallery-img">
+                        </div>
+                        <p class="gallery-caption">Inter-College Cricket Final</p>
+                    </div>
+
+                    <div class="gallery-item group">
+                        <div class="gallery-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800" class="gallery-img">
+                        </div>
+                        <p class="gallery-caption">Debate Competition</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <a href="https://whatsapp.com" target="_blank" class="float-btn">
+        <i data-lucide="message-circle" style="height: 2rem; width: 2rem;"></i>
+        <div class="whatsapp">
+             Join whatsapp <span> Communinty.</span>
+        </div>
+    </a>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div style="display: flex; align-items: center; color: white; margin-bottom: 1rem;">
+                        <i data-lucide="graduation-cap" style="height: 2rem; width: 2rem; margin-right: 0.5rem;"></i>
+                        <span style="font-size: 1.25rem; font-weight: 700;">IMCB H-9 Alumni</span>
+                    </div>
+                    <p style="font-size: 0.875rem; color: #9ca3af;">
+                        Connecting graduates, fostering growth, and celebrating the legacy of Islamabad Model College for Boys H-9.
+                    </p>
+                </div>
+                <div>
+                    <h3 style="font-size: 0.875rem; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;">Contact Us</h3>
+                    <ul style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <li style="display: flex; align-items: center; font-size: 0.875rem;"><i data-lucide="map-pin" style="height: 1rem; width: 1rem; margin-right: 0.5rem;"></i> Sector H-9, Islamabad</li>
+                        <li style="display: flex; align-items: center; font-size: 0.875rem;"><i data-lucide="phone" style="height: 1rem; width: 1rem; margin-right: 0.5rem;"></i> +92 (51) 9257-XXX</li>
+                        <li style="display: flex; align-items: center; font-size: 0.875rem;"><i data-lucide="mail" style="height: 1rem; width: 1rem; margin-right: 0.5rem;"></i> alumni@imcbh9.edu.pk</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="font-size: 0.875rem; font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;">Quick Links</h3>
+                    <ul style="display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem;">
+                        <li><a href="#" style="transition: color 0.2s;">College Website</a></li>
+                        <li><a href="#" style="transition: color 0.2s;">Transcript Request</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2024 IMCB H-9 Alumni Association. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
